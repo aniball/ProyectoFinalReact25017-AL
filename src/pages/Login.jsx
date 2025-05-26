@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import Swal from 'sweetalert2';
 
 export default function Login() {
@@ -6,7 +8,10 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
+  const { login } = useAuth();
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -16,12 +21,17 @@ export default function Login() {
     setTimeout(() => {
       if (email === 'admin@admin.com' && password === 'admin') {
         setLoading(false);
-        Swal.fire({
+        login(); 
+        navigate('/');
+/*         Swal.fire({
           icon: 'success',
           title: 'Bienvenido a Athos Shop',
           text: '¡Disfruta de tu compra!',
           showConfirmButton: true,
-        });
+        }).then(() => {
+          navigate('/');
+          window.location.reload(); // Opcional: fuerza actualización del navbar
+        }); */
       } else {
         setLoading(false);
         setError('Credenciales incorrectas');

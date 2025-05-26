@@ -3,14 +3,16 @@ import {
   Navbar,
   NavbarBrand,
   NavbarCollapse,
-  NavbarLink,
   NavbarToggle,
   Dropdown,
   DropdownItem,
 } from 'flowbite-react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { ShoppingCartIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import logo from '../assets/athos-logo.png'; 
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const categorias = [
   { id: 'electronics', name: 'Electrónica' },
@@ -19,7 +21,17 @@ const categorias = [
   { id: "women's clothing", name: 'Ropa de Mujer' },
 ];
 
-const Navigation = () => (
+
+const Navigation = () =>  {
+
+  const { isAuth, logout } = useAuth(); // Asegúrate de que useAuth esté correctamente implementado
+  const navigate = useNavigate(); // Mueve esto dentro del componente Navigation
+  const cerrarSesion = () => {
+    logout();
+    navigate('/');
+  };
+
+  return (    
   <Navbar fluid rounded className="bg-white shadow-md border-b border-gray-100 py-4">
     <div className="container mx-auto flex flex-wrap items-center justify-between">
       <NavbarBrand as={Link} to="/" className="flex items-center gap-2">
@@ -29,9 +41,14 @@ const Navigation = () => (
 
       <NavbarToggle />
       <NavbarCollapse>
-        <NavbarLink as={Link} to="/" className="text-gray-700 font-medium">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `text-gray-700 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
+          }
+        >
           Home
-        </NavbarLink>
+        </NavLink>
 
         {/* Dropdown de Categorías */}
         <Dropdown
@@ -46,26 +63,67 @@ const Navigation = () => (
         >
           {categorias.map(cat => (
             <DropdownItem key={cat.id}>
-              <Link to={`/categoria/${encodeURIComponent(cat.id)}`} className="w-full block">
+              <NavLink
+                to={`/categoria/${encodeURIComponent(cat.id)}`}
+                className={({ isActive }) =>
+                  `block px-2 py-1 text-sm ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
+                }
+              >
                 {cat.name}
-              </Link>
+              </NavLink>              
             </DropdownItem>
           ))}
         </Dropdown>
 
-        <NavbarLink as={Link} to="/login" className="text-gray-700 font-medium">
-          Inciar Sesión
-        </NavbarLink>
-        
-        <NavbarLink
-          as={Link}
+        {/* Solo si está autenticado */}
+        {isAuth && (
+            <NavLink
+              to="/admin"
+              className={({ isActive }) =>
+                `text-gray-700 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
+              }
+            >
+              Administracion
+            </NavLink>
+        )}
+
+        {/* Login o Logout */}
+        <div className="ml-auto">
+          {!isAuth ? (
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                `text-gray-700 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
+              }
+            >
+              Inciar Sesión
+            </NavLink>
+          ) : (
+            <NavLink
+              to="/"
+              onClick={cerrarSesion}
+              className={({ isActive }) =>
+                `text-gray-700 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
+              }
+            >
+              Cerrar sesión
+            </NavLink>
+          )}
+        </div>
+
+        <NavLink
           to="/carrito"
-          className="text-gray-700 flex items-center gap-1 hover:text-blue-600">
+          className={({ isActive }) =>
+            `text-gray-700 flex items-center gap-1 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
+          }
+        >
           <ShoppingCartIcon className="h-5 w-5" />
-        </NavbarLink>
+          Carrito
+        </NavLink>
+        
       </NavbarCollapse>
     </div>
   </Navbar>
-);
+)};
 
 export default Navigation;

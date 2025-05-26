@@ -19,8 +19,12 @@ const Carrito = () => {
             <ul className="divide-y divide-gray-200">
               {carrito.map((item, idx) => (
                 <li key={idx} className="py-4 flex justify-between items-center">
-                  <span className="text-gray-800">{item.title}</span>
-                  <span className="font-semibold text-blue-600">${item.price}</span>
+                  <span className="text-gray-800">
+                    {item.title} × {item.cantidad || 1}
+                  </span>
+                  <span className="font-semibold text-blue-600">
+                    ${item.price * (item.cantidad || 1)}
+                  </span>
                 </li>
               ))}
             </ul>
