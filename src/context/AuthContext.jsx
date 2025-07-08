@@ -1,25 +1,55 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from "react";
 
-const AuthContext = createContext(null); // 👈 importante que tenga valor inicial
+const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(localStorage.getItem('auth') === 'true');
 
-  const login = () => {
-    localStorage.setItem('auth', 'true');
-    setIsAuth(true);
+export function AuthProvider({ children }) 
+{
+
+  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => 
+    {
+    const savedToken = localStorage.getItem("token");
+    const savedUser = localStorage.getItem("user");
+    if (savedToken && savedUser) {
+      setToken(savedToken);
+      setUser(savedUser);
+    }
+  }, []);
+
+
+  const login = (username, password) => 
+    {
+    if (username === "admin" && password === "1234") 
+      {
+      const tokenFalso = "dG9rZW5GYWxzbzEyMzQ=";
+      setToken(tokenFalso);
+      setUser(username);
+      localStorage.setItem("token", tokenFalso);
+      localStorage.setItem("user", username);
+      return true;
+    }
+    return false;
   };
 
-  const logout = () => {
-    localStorage.removeItem('auth');
-    setIsAuth(false);
+
+    const logout = () => 
+    {
+    setToken(null);
+    setUser(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
+  const isAuth = Boolean(token);
+  
   return (
-    <AuthContext.Provider value={{ isAuth, login, logout }}>
+    <AuthContext.Provider value={{ token, user, login, logout, isAuth }}>
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 export const useAuth = () => useContext(AuthContext);

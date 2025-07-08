@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navbar';
 import Home from './pages/Home';
 import Products from './pages/Products';
+import ProductsCRUD from "./pages/ProductsCRUD";
 import ProductDetail from './components/ProductDetail';
 import Login from './pages/Login';
 import Carrito from './components/Carrito';
@@ -24,8 +25,11 @@ const App = () => (
         <Route path="/categoria/:categoria" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/admin/productos" element={<ProductsCRUD />} /> */}
         <Route path="/admin" element={
-          <RutaProtegida><Administracion /></RutaProtegida>
+          <RutaProtegida>
+              <ProductsCRUD />
+          </RutaProtegida>
         } />
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/about" element={<About />} />

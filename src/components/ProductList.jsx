@@ -10,15 +10,24 @@ const ProductList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let url = 'https://fakestoreapi.com/products';
+    let url = 'https://686b128ee559eba9087171ff.mockapi.io/products';
     if (categoria) {
-      url += `/category/${categoria}`;
+      url += `?category=${encodeURIComponent(categoria)}`;
     }
 
     fetch(url)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Error al cargar productos");
+        }
+        return response.json();
+      })
       .then((data) => {
-        setProducts(data);
+        if (Array.isArray(data)) {
+          setProducts(data);
+        } else {
+          setProducts([]);
+        }
         setLoading(false);
       })
       .catch((error) => {

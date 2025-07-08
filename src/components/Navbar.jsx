@@ -24,8 +24,8 @@ const categorias = [
 
 const Navigation = () =>  {
 
-  const { isAuth, logout } = useAuth(); // Asegúrate de que useAuth esté correctamente implementado
-  const navigate = useNavigate(); // Mueve esto dentro del componente Navigation
+  const { user, isAuth, logout } = useAuth(); 
+  const navigate = useNavigate(); 
   const cerrarSesion = () => {
     logout();
     navigate('/');
@@ -83,7 +83,7 @@ const Navigation = () =>  {
                 `text-gray-700 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
               }
             >
-              Administracion
+              Productos CRUD
             </NavLink>
         )}
 
