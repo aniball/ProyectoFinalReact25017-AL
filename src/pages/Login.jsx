@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import Swal from 'sweetalert2';
 
 export default function Login() {
   const [user, setUser] = useState('');
@@ -20,15 +19,6 @@ export default function Login() {
       if (login(user, password)) {
         setLoading(false);
         navigate('/');
-/*         Swal.fire({
-          icon: 'success',
-          title: 'Bienvenido a Athos Shop',
-          text: '¡Disfruta de tu compra!',
-          showConfirmButton: true,
-        }).then(() => {
-          navigate('/');
-          window.location.reload(); // Opcional: fuerza actualización del navbar
-        }); */
       } else {
         setLoading(false);
         setError('Credenciales incorrectas');
@@ -52,7 +42,7 @@ export default function Login() {
                   name="user"
                   id="user"
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Ingrese usuario"
+                  placeholder="Ingrese usuario (admin)"
                   required
                   value={user}
                   onChange={e => setUser(e.target.value)}
@@ -64,7 +54,7 @@ export default function Login() {
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="••••••••"
+                  placeholder="•••••••• (1234)"
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                   value={password}

@@ -6,8 +6,10 @@ import {
   TextInput,
   Textarea
 } from "flowbite-react";
-import Swal from 'sweetalert2';
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage } from "@cloudinary/react";
 
+const cld = new Cloudinary({ cloud: { cloudName: "dtauarwps" } });
 const API_URL = "https://686b128ee559eba9087171ff.mockapi.io/products";
 
 export default function ProductsCRUD() {
@@ -94,7 +96,7 @@ export default function ProductsCRUD() {
   const handleEliminar = async (id) => {
     if (!window.confirm("¿Seguro que deseas eliminar este producto?")) return;
     try {
-      await fetch(`${API_URL}/${id}`, { methkod: "DELETE" });
+      await fetch(`${API_URL}/${id}`, { method: "DELETE" });
       fetchProductos();
     } catch (error) {
       console.error(error);
@@ -118,6 +120,34 @@ export default function ProductsCRUD() {
     });
     setModo("agregar");
     setShowModal(true);
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "productos_preset"); 
+
+    try {
+      const res = await fetch("https://api.cloudinary.com/v1_1/dtauarwps/image/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (data.secure_url) {
+        setProductoActual({
+          ...productoActual,
+          image: data.secure_url,
+        });
+      } else {
+        alert("No se pudo obtener la URL de la imagen.");
+      }
+    } catch (error) {
+      console.error("Error al subir imagen:", error);
+      alert("Error al subir la imagen.");
+    }
   };
 
   return (
@@ -166,7 +196,7 @@ export default function ProductsCRUD() {
             </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Nombre</label>
+              <label className="block text-sm font-medium text-gray-700">Nombre *</label>
               <TextInput
                 name="title"
                 value={productoActual.title}
@@ -175,7 +205,7 @@ export default function ProductsCRUD() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Precio</label>
+              <label className="block text-sm font-medium text-gray-700">Precio *</label>
               <TextInput
                 name="price"
                 type="number"
@@ -185,7 +215,7 @@ export default function ProductsCRUD() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Descripción</label>
+              <label className="block text-sm font-medium text-gray-700">Descripción *</label>
               <Textarea
                 name="description"
                 value={productoActual.description}
@@ -194,7 +224,7 @@ export default function ProductsCRUD() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Categoría</label>
+              <label className="block text-sm font-medium text-gray-700">Categoría *</label>
               <select
                 name="category"
                 value={productoActual.category}
@@ -211,14 +241,36 @@ export default function ProductsCRUD() {
               </select> 
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Imagen (URL)</label>
+              <label className="block text-sm font-medium text-gray-700">Imagen (URL o Archivo)</label>
+
               <TextInput
                 name="image"
+                placeholder="URL de la imagen"
                 value={productoActual.image}
                 onChange={handleChange}
+                className="mb-2"
               />
+
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 mt-1"
+              />
+
+              {productoActual.image && (
+                <div className="mt-2">
+                  <label className="text-xs text-gray-500 mb-1 block">Vista previa:</label>
+                  <img
+                    src={productoActual.image}
+                    alt="Vista previa"
+                    className="h-32 object-contain border rounded"
+                  />
+                </div>
+              )}
             </div>
-            <div className="flex justify-end gap-2">
+
+            <div className="flex justify-end gap-2 mt-4">
               <Button type="button" color="gray" onClick={() => setShowModal(false)}>
                 Cancelar
               </Button>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  { useContext } from 'react';
 import {
   Navbar,
   NavbarBrand,
@@ -12,6 +12,9 @@ import { ShoppingCartIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import logo from '../assets/athos-logo.png'; 
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { CarritoContext } from '../context/CarritoContext';
+import { FaShoppingCart } from "react-icons/fa";
+import { Badge } from "flowbite-react";
 
 
 const categorias = [
@@ -30,6 +33,8 @@ const Navigation = () =>  {
     logout();
     navigate('/');
   };
+  const { carrito } = useContext(CarritoContext);
+  const totalProductos = carrito.reduce((acc, product) => acc + product.cantidad, 0);
 
   return (    
   <Navbar fluid rounded className="bg-white shadow-md border-b border-gray-100 py-4">
@@ -111,15 +116,27 @@ const Navigation = () =>  {
           )}
         </div>
 
-        <NavLink
-          to="/carrito"
-          className={({ isActive }) =>
-            `text-gray-700 flex items-center gap-1 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
-          }
-        >
-          <ShoppingCartIcon className="h-5 w-5" />
-          Carrito
-        </NavLink>
+      <NavLink
+        to="/carrito"
+        className={({ isActive }) =>
+          `text-gray-700 flex items-center gap-1 font-medium relative ${
+            isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'
+          }`
+        }
+      >
+        {/* Ícono con badge */}
+        <div className="relative">
+          <FaShoppingCart className="h-5 w-5" />
+          {totalProductos > 0 && (
+            <Badge
+              color="red"
+              className="absolute -top-2 -right-2 text-xs px-1.5 py-0.5 rounded-full"
+            >
+              {totalProductos}
+            </Badge>
+          )}
+        </div>
+      </NavLink>
         
       </NavbarCollapse>
     </div>

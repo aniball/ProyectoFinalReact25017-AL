@@ -8,17 +8,18 @@ import ProductsCRUD from "./pages/ProductsCRUD";
 import ProductDetail from './components/ProductDetail';
 import Login from './pages/Login';
 import Carrito from './components/Carrito';
-import Administracion from './pages/Administracion';
 import RutaProtegida from './components/RutaProtegida';
 import AppFooter from './components/AppFooter';
 import About from './pages/About';
 import Contacto from './pages/Contacto';
 import NotFound from './pages/NotFound';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => (
-  <>
+  <div className="flex flex-col min-h-screen">
     <Navigation />
-    <div className="mt-4">
+    <main className="flex-grow mt-4">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
@@ -36,9 +37,10 @@ const App = () => (
         <Route path="/contacto" element={<Contacto />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </div>
+      <ToastContainer position="bottom-right" autoClose={3000} />
+    </main>
     <AppFooter />
-  </>
+  </div>
 );
 
 export default App;

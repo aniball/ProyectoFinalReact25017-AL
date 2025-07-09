@@ -2,20 +2,14 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CarritoContext } from '../context/CarritoContext';
 import { Button, Card } from 'flowbite-react';
-import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const ProductCard = ({ product }) => {
   const { agregarAlCarrito } = useContext(CarritoContext);
 
   const handleAddToCart = () => {
     agregarAlCarrito(product);
-    Swal.fire({
-      icon: 'success',
-      title: '¡Agregado!',
-      text: 'El producto fue agregado al carrito.',
-      timer: 1500,
-      showConfirmButton: false,
-    });
+    toast.success(`🛒 ${product.title} - Agregado al Carrito!`);
   };
 
   return (
@@ -46,7 +40,7 @@ const ProductCard = ({ product }) => {
           </Link>
         </div>
       </div>
-    </Card>    
+    </Card> 
   );
 };
 
