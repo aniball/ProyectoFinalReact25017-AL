@@ -6,8 +6,10 @@ import {
   TextInput,
   Textarea
 } from "flowbite-react";
+import { Label } from "flowbite-react";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage } from "@cloudinary/react";
+import { toast } from "react-toastify";
 
 const cld = new Cloudinary({ cloud: { cloudName: "dtauarwps" } });
 const API_URL = "https://686b128ee559eba9087171ff.mockapi.io/products";
@@ -66,9 +68,18 @@ export default function ProductsCRUD() {
   const handleSubmit = async (e) => {
     e.preventDefault();
    
+    if (productoActual.price <= 0) {
+      toast.warning("El precio debe ser mayor a 0.");
+      return;
+    }
+    if (!productoActual.description || productoActual.description.length < 10) {
+      toast.warning("La descripción debe tener al menos 10 caracteres.");
+      return;
+    }
+
     if (modo === "editar" && !productoActual.id) {
-    alert("Error: el producto no tiene un ID para editar.");
-    return;
+      toast.error("Error: el producto no tiene un ID para editar.");
+      return;
     }
     
     try {
@@ -89,7 +100,7 @@ export default function ProductsCRUD() {
       fetchProductos();
     } catch (error) {
       console.error(error);
-      alert("Error al guardar el producto");
+      toast.error("Error al guardar el producto");
     }
   };
 
@@ -100,7 +111,7 @@ export default function ProductsCRUD() {
       fetchProductos();
     } catch (error) {
       console.error(error);
-      alert("Error al eliminar el producto");
+      toast.error("Error al eliminar el producto");
     }
   };
 
@@ -152,43 +163,50 @@ export default function ProductsCRUD() {
 
   return (
     <div className="max-w-7xl mx-auto p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold text-blue-700">Gestión de Productos</h1>
-        <Button color="blue" onClick={handleAgregar}>
-          Agregar Producto
-        </Button>
-      </div>
+      {!loading ? 
+      (
+        <>
+          <div className="flex justify-between items-center mb-4">
+            <h1 className="text-3xl font-bold text-blue-700">Gestión de Productos</h1>
+            <Button color="blue" onClick={handleAgregar}>
+              Agregar Producto
+            </Button>
+          </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
-        {productos.map((p) => (
-          <Card className="w-80 mb-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center border border-gray-200">
-            <div className="relative w-full flex justify-center">
-              <img
-                src={p.image}
-                alt={p.title}
-                className="h-48 object-contain mt-6 mb-2 transition-transform duration-300 hover:scale-105"
-                style={{ maxWidth: '160px' }}
-              />
-              <span className="absolute top-2 right-2 bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">
-                ${p.price}
-              </span>
-            </div>
-            <div className="px-4 pb-4 flex flex-col items-center w-full">
-              <h5 className="text-lg font-bold mt-2 text-center line-clamp-2">{p.title}</h5>
-              <p className="text-gray-500 text-sm mt-1 mb-3 text-center line-clamp-2">{p.description}</p>
-              <div className="flex gap-2 w-full justify-center">
-                <Button color="yellow" onClick={() => handleEditar(p)} className="w-1/2">
-                  Editar
-                </Button>
-                <Button color="red" onClick={() => handleEliminar(p.id)} className="w-1/2">
-                  Eliminar
-                </Button>
-              </div>
-            </div>
-          </Card>            
-        ))}
-      </div>
-
+          <div className="grid md:grid-cols-3 gap-4">
+            {productos.map((p) => (
+              <Card className="w-80 mb-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center border border-gray-200">
+                <div className="relative w-full flex justify-center">
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="h-48 object-contain mt-6 mb-2 transition-transform duration-300 hover:scale-105"
+                    style={{ maxWidth: '160px' }}
+                  />
+                  <span className="absolute top-2 right-2 bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">
+                    ${p.price}
+                  </span>
+                </div>
+                <div className="px-4 pb-4 flex flex-col items-center w-full">
+                  <h5 className="text-lg font-bold mt-2 text-center line-clamp-2">{p.title}</h5>
+                  <p className="text-gray-500 text-sm mt-1 mb-3 text-center line-clamp-2">{p.description}</p>
+                  <div className="flex gap-2 w-full justify-center">
+                    <Button color="yellow" onClick={() => handleEditar(p)} className="w-1/2">
+                      Editar
+                    </Button>
+                    <Button color="red" onClick={() => handleEliminar(p.id)} className="w-1/2">
+                      Eliminar
+                    </Button>
+                  </div>
+                </div>
+              </Card>            
+            ))}
+          </div>
+        </>
+      ):<div className="flex items-center gap-2">
+          <span className="inline-block w-4 h-4 border-2 border-t-transparent border-gray-800 rounded-full animate-spin"></span>
+          Cargando...
+        </div>}
         <Modal show={showModal} onClose={() => setShowModal(false)}>
         <div className="p-6">
             <h2 className="text-2xl font-semibold text-blue-700 mb-4">
@@ -196,7 +214,7 @@ export default function ProductsCRUD() {
             </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Nombre *</label>
+              <Label htmlFor="title">Nombre *</Label>
               <TextInput
                 name="title"
                 value={productoActual.title}
@@ -205,7 +223,7 @@ export default function ProductsCRUD() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Precio *</label>
+              <Label htmlFor="price">Precio *</Label>
               <TextInput
                 name="price"
                 type="number"
@@ -215,7 +233,7 @@ export default function ProductsCRUD() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Descripción *</label>
+              <Label htmlFor="description">Descripción *</Label>
               <Textarea
                 name="description"
                 value={productoActual.description}
@@ -224,7 +242,7 @@ export default function ProductsCRUD() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Categoría *</label>
+              <Label htmlFor="category">Categoría *</Label>
               <select
                 name="category"
                 value={productoActual.category}
@@ -241,7 +259,7 @@ export default function ProductsCRUD() {
               </select> 
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Imagen (URL o Archivo)</label>
+              <Label htmlFor="image">Imagen (URL o Archivo)</Label>
 
               <TextInput
                 name="image"

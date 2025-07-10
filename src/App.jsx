@@ -1,4 +1,3 @@
-import { useState, React } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navbar';
@@ -19,7 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const App = () => (
   <div className="flex flex-col min-h-screen">
     <Navigation />
-    <main className="flex-grow mt-4">
+    <main className="flex flex-col max-w-7xl gap-2 m-auto">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />

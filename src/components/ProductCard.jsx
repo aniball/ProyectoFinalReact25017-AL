@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
       </div>
       <div className="px-4 pb-4 flex flex-col items-center w-full">
         <h5 className="text-lg font-bold mt-2 text-center line-clamp-2">{product.title}</h5>
-        <p className="text-gray-500 text-sm mt-1 mb-3 text-center line-clamp-2">{product.description}</p>
+        <p className="text-gray-200 text-sm mt-1 mb-3 text-center line-clamp-2">{product.description}</p>
         <div className="flex gap-2 w-full justify-center">
           <Button color="blue" onClick={handleAddToCart} className="w-1/2">
             Agregar

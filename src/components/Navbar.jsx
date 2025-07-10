@@ -37,7 +37,7 @@ const Navigation = () =>  {
   const totalProductos = carrito.reduce((acc, product) => acc + product.cantidad, 0);
 
   return (    
-  <Navbar fluid rounded className="bg-white shadow-md border-b border-gray-100 py-4">
+  <Navbar fluid rounded className="bg-white shadow-md border-b border-gray-100 py-4 mb-4">
     <div className="container mx-auto flex flex-wrap items-center justify-between">
       <NavbarBrand as={Link} to="/" className="flex items-center gap-2">
         <img src={logo} alt="Athos Shop Logo" className="h-14" />
@@ -49,7 +49,7 @@ const Navigation = () =>  {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `text-gray-700 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
+            `text-gray-200 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
           }
         >
           Home
@@ -59,7 +59,7 @@ const Navigation = () =>  {
         <Dropdown
           label="Categorías"
           renderTrigger={() => (
-            <span className="text-gray-700 font-medium cursor-pointer flex items-center gap-1">
+            <span className="text-gray-200 font-medium cursor-pointer flex items-center gap-1">
               Categorías
               <ChevronDownIcon className="h-4 w-4" />
             </span>
@@ -71,7 +71,7 @@ const Navigation = () =>  {
               <NavLink
                 to={`/categoria/${encodeURIComponent(cat.id)}`}
                 className={({ isActive }) =>
-                  `block px-2 py-1 text-sm ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'}`
+                  `block px-2 py-1 text-sm ${isActive ? 'text-blue-600 font-semibold' : 'text-gray-200'}`
                 }
               >
                 {cat.name}
@@ -81,11 +81,11 @@ const Navigation = () =>  {
         </Dropdown>
 
         {/* Solo si está autenticado */}
-        {isAuth && (
+        {isAuth && user === "admin" && (
             <NavLink
               to="/admin"
               className={({ isActive }) =>
-                `text-gray-700 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
+                `text-gray-200 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
               }
             >
               Productos CRUD
@@ -98,28 +98,33 @@ const Navigation = () =>  {
             <NavLink
               to="/login"
               className={({ isActive }) =>
-                `text-gray-700 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
+                `text-gray-200 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
               }
             >
               Inciar Sesión
             </NavLink>
           ) : (
-            <NavLink
-              to="/"
-              onClick={cerrarSesion}
-              className={({ isActive }) =>
-                `text-gray-700 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
-              }
-            >
-              Cerrar sesión
-            </NavLink>
+            <div className="flex items-center gap-4">
+              <span className="text-gray-700 dark:text-gray-300 font-medium">
+                Hola, {user}
+              </span>
+              <NavLink
+                to="/"
+                onClick={cerrarSesion}
+                className={({ isActive }) =>
+                  `text-gray-200 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
+                }
+              >
+                Cerrar sesión
+              </NavLink>
+            </div>
           )}
         </div>
 
       <NavLink
         to="/carrito"
         className={({ isActive }) =>
-          `text-gray-700 flex items-center gap-1 font-medium relative ${
+          `text-gray-200 flex items-center gap-1 font-medium relative ${
             isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'
           }`
         }

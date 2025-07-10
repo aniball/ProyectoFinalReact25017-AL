@@ -40,7 +40,7 @@ const Home = () => {
           ].map((item, index) => (
             <Card key={index} className="rounded-xl shadow-md hover:shadow-xl transition">
               <img src={item.image} alt={item.title} className="h-40 object-contain mx-auto" />
-              <h5 className="text-lg font-bold text-gray-800 mt-4">{item.title}</h5>
+              <h5 className="text-lg font-bold text-gray-200 mt-4">{item.title}</h5>
               <Button as={Link} to={`/categoria/${encodeURIComponent(item.category)}`} color="blue" size="sm" className="mt-2">
                 Ver productos
               </Button>
