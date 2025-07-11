@@ -4,7 +4,7 @@ import { Alert, Card, Spinner } from 'flowbite-react';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -36,8 +36,8 @@ const ProductDetail = () => {
         style={{ width: '150px' }}
       />
       <h2 className="text-xl font-bold mb-2 text-center">{product.title}</h2>
-      <p className="text-gray-700 mb-2 text-center">{product.description}</p>
-      <p className="text-lg font-semibold text-blue-600 mb-2">${product.price}</p>
+      <p className="text-gray-700 dark:text-gray-300 mb-2 text-center">{product.description}</p>
+      <p className="text-lg font-semibold text-blue-600 dark:text-gray-300 mb-2">${product.price}</p>
     </Card>
   );
 };

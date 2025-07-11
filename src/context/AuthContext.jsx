@@ -22,7 +22,7 @@ export function AuthProvider({ children })
 
   const login = (username, password) => 
     {
-    if ((username === "admin" || username === "usuario") && password === "1234") 
+    if (username === "admin" && password === "1234") 
       {
       const tokenFalso = "dG9rZW5GYWxzbzEyMzQ=";
       setToken(tokenFalso);

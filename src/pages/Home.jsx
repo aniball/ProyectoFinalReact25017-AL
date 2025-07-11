@@ -9,10 +9,10 @@ const Home = () => {
       {/* Hero Section */}
       <section className="bg-blue-50 rounded-2xl p-8 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex-1">
-          <h1 className="text-4xl md:text-5xl font-bold text-blue-700 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-blue-700 dark:text-blue-300 mb-4">
             Bienvenido a Athos Shop
           </h1>
-          <p className="text-lg text-gray-600 mb-6">
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
             Explora nuestras categorías y encuentra lo mejor en tecnología, moda y más.
           </p>
           <Button as={Link} to="/products" color="blue" size="lg">
@@ -30,7 +30,7 @@ const Home = () => {
 
       {/* Destacados */}
       <section className="text-center">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-8">Categorías Populares</h2>
+        <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-100 mb-8">Categorías Populares</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { title: 'Electrónica', image: 'https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg', category: 'electronics' },
@@ -38,9 +38,9 @@ const Home = () => {
             { title: 'Ropa Hombre', image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg', category: "men's clothing" },
             { title: 'Ropa Mujer', image: 'https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg', category: "women's clothing" },
           ].map((item, index) => (
-            <Card key={index} className="rounded-xl shadow-md hover:shadow-xl transition">
+            <Card key={index} className="rounded-xl shadow-md hover:shadow-xl transition bg-white dark:bg-gray-800 text-gray-800 dark:text-white">
               <img src={item.image} alt={item.title} className="h-40 object-contain mx-auto" />
-              <h5 className="text-lg font-bold text-gray-200 mt-4">{item.title}</h5>
+              <h5 className="text-lg font-bold text-gray-800 dark:text-white mt-4">{item.title}</h5>
               <Button as={Link} to={`/categoria/${encodeURIComponent(item.category)}`} color="blue" size="sm" className="mt-2">
                 Ver productos
               </Button>

@@ -26,7 +26,7 @@ const Contacto = () => {
     <div className="max-w-3xl mx-auto p-6">
       <Card className="p-8 rounded-xl shadow-md">
         <h2 className="text-3xl font-bold text-blue-700 mb-4 text-center">Contáctanos</h2>
-        <p className="text-gray-600 mb-6 text-center">
+        <p className="text-gray-600 dark:text-gray-300 mb-6 text-center">
           ¿Tenés preguntas o comentarios? Completá el siguiente formulario y te responderemos lo antes posible.
         </p>
 
@@ -71,7 +71,7 @@ const Contacto = () => {
         </form>
       </Card>
 
-      <div className="text-center text-sm text-gray-500 mt-6">
+      <div className="text-center text-sm text-gray-600 dark:text-gray-300 mt-6">
         También podés escribirnos a <a href="mailto:contacto@athosshop.com" className="text-blue-600 underline">contacto@athosshop.com</a>
       </div>
     </div>
