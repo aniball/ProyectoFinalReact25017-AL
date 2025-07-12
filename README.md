@@ -1,12 +1,86 @@
-# React + Vite
+# 🛒 Athos Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Athos Shop** es una tienda en línea desarrollada con React, Vite, TailwindCSS y Flowbite. Permite navegar, buscar y administrar productos, agregar al carrito, realizar login y proteger rutas administrativas. Incluye integración con Cloudinary para gestión de imágenes.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologías utilizadas
 
-## Expanding the ESLint configuration
+- ⚛️ **React + Vite**
+- 🎨 **TailwindCSS** con soporte para modo claro/oscuro
+- 💡 **Flowbite React** (UI components)
+- 🔒 **Context API** para autenticación y carrito
+- ☁️ **Cloudinary** para subir imágenes de productos
+- 🔁 **MockAPI** como backend REST para productos
+- 🔔 **React Toastify** para notificaciones
+- 🧭 **React Router DOM** para navegación
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📁 Estructura de carpetas
+
+
+```
+src/
+│
+├── components/ # Navbar, Footer, etc.
+├── context/ # AuthContext, CarritoContext
+├── pages/ # Home, ProductsCRUD, About, Contact
+├── assets/ # Imágenes locales
+├── App.jsx # Componente principal
+├── main.jsx # Punto de entrada
+├── App.css # Tailwind y estilos personalizados
+└── vite.config.js
+
+```
+
+## ⚙️ Instalación
+
+1. Cloná el repositorio:
+
+```bash
+    git clone https://github.com/tuusuario/athos-shop.git
+    cd athos-shop
+```
+
+2. Instalá las dependencias:
+
+```
+    npm install
+```
+
+3. Iniciá el servidor de desarrollo:
+
+```
+    npm run dev
+```
+
+4. Accedé a la app en http://localhost:5173
+
+
+---
+
+🔑 Funcionalidades destacadas
+🧾 Catálogo: navegación por categorías y detalle de productos
+
+🛍 Carrito: agregar, eliminar, modificar cantidades, total en tiempo real
+
+🔐 Login: sistema de autenticación básico con rutas protegidas
+
+⚙️ CRUD de productos: agregar, editar y eliminar productos (vía MockAPI)
+
+🌗 Modo claro/oscuro: activado automáticamente según preferencia del usuario
+
+☁️ Carga de imágenes: integración con Cloudinary desde el CRUD
+
+📄 Páginas informativas: Acerca de, Contacto, etc.
+
+🌐 Deploy en Vercel
+Esta aplicación está lista para ser desplegada en Vercel.
+
+🛠 Scripts disponibles
+```
+npm run dev       # Inicia Vite
+npm run build     # Compila la app para producción
+npm run preview   # Modo preview local
+```
