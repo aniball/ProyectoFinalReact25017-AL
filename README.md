@@ -16,7 +16,7 @@
 - 🧭 **React Router DOM** para navegación
 
 ---
-
+ 
 ## 📁 Estructura de carpetas
 
 
