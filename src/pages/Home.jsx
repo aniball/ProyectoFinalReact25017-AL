@@ -12,7 +12,7 @@ const Home = () => {
           <h1 className="text-4xl md:text-5xl font-bold text-blue-700 dark:text-blue-300 mb-4">
             Bienvenido a Athos Shop
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
             Explora nuestras categorías y encuentra lo mejor en tecnología, moda y más.
           </p>
           <Button as={Link} to="/products" color="blue" size="lg">
@@ -30,7 +30,7 @@ const Home = () => {
 
       {/* Destacados */}
       <section className="text-center">
-        <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-100 mb-8">Categorías Populares</h2>
+        <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-400 mb-8">Categorías Populares</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { title: 'Electrónica', image: 'https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg', category: 'electronics' },

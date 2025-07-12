@@ -29,15 +29,17 @@ const ProductDetail = () => {
   );
   return (
     <Card className="max-w-md mx-auto p-6 flex flex-col items-center">
+      <div className="relative w-full flex justify-center">
       <img
         src={product.image}
         alt={product.title}
         className="h-48 object-contain mb-4"
         style={{ width: '150px' }}
       />
+     </div>
       <h2 className="text-xl font-bold mb-2 text-center">{product.title}</h2>
       <p className="text-gray-700 dark:text-gray-300 mb-2 text-center">{product.description}</p>
-      <p className="text-lg font-semibold text-blue-600 dark:text-gray-300 mb-2">${product.price}</p>
+      <p className="text-lg font-bold text-center text-blue-600 dark:text-gray-300 mb-2">${product.price}</p>
     </Card>
   );
 };

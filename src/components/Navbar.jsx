@@ -8,7 +8,7 @@ import {
   DropdownItem,
 } from 'flowbite-react';
 import { Link, NavLink } from 'react-router-dom';
-import { ShoppingCartIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { UserIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import logo from '../assets/athos-logo.png'; 
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -93,33 +93,40 @@ const Navigation = () =>  {
         )}
 
         {/* Login o Logout */}
-        <div className="ml-auto">
+      <div className="ml-auto">
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300 font-medium">
+            <UserIcon className="w-5 h-5" />
+            Hola, {isAuth ? user : "visitante"}
+          </span>
+
           {!isAuth ? (
             <NavLink
               to="/login"
               className={({ isActive }) =>
-                `text-gray-800 dark:text-gray-100 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
+                `text-gray-800 dark:text-gray-100 font-medium ${
+                  isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'
+                }`
               }
             >
-              Inciar Sesión
+              Iniciar Sesión
             </NavLink>
           ) : (
-            <div className="flex items-center gap-4">
-              <span className="text-gray-700 dark:text-gray-300 font-medium">
-                Hola, {user}
-              </span>
-              <NavLink
-                to="/"
-                onClick={cerrarSesion}
-                className={({ isActive }) =>
-                  `text-gray-800 dark:text-gray-100 font-medium ${isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'}`
-                }
-              >
-                Cerrar sesión
-              </NavLink>
-            </div>
+            <NavLink
+              to="/"
+              onClick={cerrarSesion}
+              className={({ isActive }) =>
+                `text-gray-800 dark:text-gray-100 font-medium ${
+                  isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'
+                }`
+              }
+            >
+              Cerrar sesión
+            </NavLink>
           )}
         </div>
+      </div>
+     
 
       <NavLink
         to="/carrito"
