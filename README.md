@@ -16,7 +16,7 @@
 - 🧭 **React Router DOM** para navegación
 
 ---
- 
+
 ## 📁 Estructura de carpetas
 
 
@@ -39,8 +39,8 @@ src/
 1. Cloná el repositorio:
 
 ```bash
-    git clone https://github.com/tuusuario/athos-shop.git
-    cd athos-shop
+    git clone https://github.com/aniball/ProyectoFinalReact25017-AL.git
+    cd ProyectoFinalReact25017-AL
 ```
 
 2. Instalá las dependencias:
@@ -75,8 +75,8 @@ src/
 
 📄 Páginas informativas: Acerca de, Contacto, etc.
 
-🌐 Deploy en Vercel
-Esta aplicación está lista para ser desplegada en Vercel.
+🌐 Deploy en Netlify
+Esta aplicación está lista para ser desplegada en netlify.com.
 
 🛠 Scripts disponibles
 ```

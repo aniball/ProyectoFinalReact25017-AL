@@ -279,17 +279,6 @@ export default function ProductsCRUD() {
                 onChange={handleImageUpload}
                 className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 mt-1"
               />
-
-              {productoActual.image && (
-                <div className="mt-2">
-                  <label className="text-xs text-gray-500 mb-1 block">Vista previa:</label>
-                  <img
-                    src={productoActual.image}
-                    alt="Vista previa"
-                    className="h-32 object-contain border rounded"
-                  />
-                </div>
-              )}
             </div>
 
             <div className="flex justify-end gap-2 mt-4">

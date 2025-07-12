@@ -93,41 +93,39 @@ const Navigation = () =>  {
         )}
 
         {/* Login o Logout */}
-      <div className="ml-auto">
-        <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300 font-medium">
-            <UserIcon className="w-5 h-5" />
-            Hola, {isAuth ? user : "visitante"}
-          </span>
+      <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mt-4 md:mt-0">
+        <span className="flex items-center gap-1 text-gray-700 dark:text-gray-300 font-medium">
+          <UserIcon className="w-5 h-5" />
+          Hola, {isAuth ? user : "visitante"}
+        </span>
 
-          {!isAuth ? (
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                `text-gray-800 dark:text-gray-100 font-medium ${
-                  isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'
-                }`
-              }
-            >
-              Iniciar Sesión
-            </NavLink>
-          ) : (
-            <NavLink
-              to="/"
-              onClick={cerrarSesion}
-              className={({ isActive }) =>
-                `text-gray-800 dark:text-gray-100 font-medium ${
-                  isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'
-                }`
-              }
-            >
-              Cerrar sesión
-            </NavLink>
-          )}
-        </div>
+        {!isAuth ? (
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              `text-gray-800 dark:text-gray-100 font-medium ${
+                isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'
+              }`
+            }
+          >
+            Iniciar sesión
+          </NavLink>
+        ) : (
+          <NavLink
+            to="/"
+            onClick={cerrarSesion}  
+            className={({ isActive }) =>
+              `text-gray-800 dark:text-gray-100 font-medium ${
+                isActive ? 'text-blue-700 underline' : 'hover:text-blue-600'
+              }`
+            }
+          >
+            Cerrar sesión
+          </NavLink>
+        )}
       </div>
-     
 
+      {/* Icono del carrito con badge */}
       <NavLink
         to="/carrito"
         className={({ isActive }) =>
